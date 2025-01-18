@@ -1,0 +1,45 @@
+{
+  "name": "@ssp/emails",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "npx rimraf --glob **/node_modules **/.turbo",
+    "lint": "eslint .",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-email/components": "^0.0.11",
+    "@react-email/render": "^0.0.10",
+    "nodemailer": "^6.9.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-email": "^1.9.5",
+    "postcss": "^8.4.31",
+    "tailwindcss": "3.3.2",
+    "autoprefixer": "^10.4.16"
+  },
+  "devDependencies": {
+    "@ssp/prettier-config": "*",
+    "@ssp/eslint-config": "*",
+    "@ssp/tailwind-config": "*",
+    "@ssp/tsconfig": "*",
+    "eslint": "^8.53.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.3",
+    "@types/node": "20.8.0",
+    "@types/nodemailer": "^6.4.14",
+    "@types/react": "18.2.24",
+    "@types/react-dom": "18.2.8"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@ssp/eslint-config/base"
+    ]
+  },
+  "prettier": "@ssp/prettier-config"
+}

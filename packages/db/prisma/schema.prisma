@@ -1,0 +1,312 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider = "npx zod-prisma-types"
+  output   = "../../utils/src/validators/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String   @id @default(uuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+  sessionToken String   @unique
+  expires      DateTime
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                   String               @id @unique @default(uuid())
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @default(now()) @updatedAt
+  lastSignIn           DateTime?
+  email                String               @unique
+  phone                String?              @unique
+  name                 String?
+  firstName            String?
+  lastName             String?
+  emailVerified        DateTime?
+  email_verified       Boolean?             @default(false)
+  phoneVerified        DateTime?
+  phone_verified       Boolean?             @default(false)
+  image                String?
+  hashedPassword       String?
+  country              String?
+  state                String?
+  city                 String?
+  postalCode           String?
+  address              String?
+  language             String?              @default("en")
+  birthdate            DateTime?
+  passportOrId         String?
+  isMarketingEnabled   Boolean?             @default(true)
+  isVip                Boolean?             @default(false)
+  role                 Role                 @default(user)
+  notificationsAllowed NotificationsAllowed @default(all)
+  accounts             Account[]
+  notifications        Notification[]       @relation("UserNotifiation")
+  resetTokens          ResetPasswordToken[]
+  sessions             Session[]
+}
+
+model VerificationToken {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model ResetPasswordToken {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Game {
+  id                String           @id @unique @default(uuid())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now()) @updatedAt
+  apiId             Int              @unique
+  name              String
+  description       String
+  thumbnail         String
+  images            String[]
+  gameUrl           String
+  gameDemoUrl       String
+  liveGameUrl       String
+  gameRequirementId String?          @unique
+  gameRequirement   GameRequirement? @relation(fields: [gameRequirementId], references: [id])
+}
+
+model GameRequirement {
+  id                String   @id @unique @default(uuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+  title             String?
+  reels             String
+  rows              String
+  paylines          String
+  rtp               String
+  hitFreq           String
+  freeSpinsFreq     String
+  maxWin            String
+  maxWinProbability String
+  volatility        String
+  minMaxBet         String
+  releaseDate       DateTime
+  features          String[]
+  provider          String
+  theme             String
+  game              Game?
+}
+
+model Advert {
+  id             String       @id @unique @default(uuid())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+  image          String?
+  href           String
+  title          String?
+  description    String?
+  promoCode      String?
+  isEnabled      Boolean      @default(true)
+  from           DateTime?
+  to             DateTime?
+  rate           String?
+  collapsed      Boolean      @default(false)
+  advertSpacesId String?      @unique
+  advertSpaces   AdvertSpace? @relation(fields: [advertSpacesId], references: [id])
+}
+
+model Reels {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model Volatility {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model Theme {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model Providers {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model Features {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+//// Casino filters /////
+model Wager {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model BonusType {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model CasinoType {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model PaymentMethod {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      String
+}
+
+model Casino {
+  id            String   @id @unique @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+  image         String?
+  href          String
+  title         String?
+  description   String?
+  promoCode     PromoCode 
+  paymentMethod Pay 
+  wager         GameWager  
+  bonusType     BonusTypes  
+  casinoType   CasinosType 
+}
+
+enum CasinosType {
+  slot
+  fishing
+  shooting
+}
+
+enum GameWager {
+  rulaj_3x3
+  rulaj_6x6
+}
+
+enum PromoCode {
+  fara_cod_promo
+  x_50_sport
+}
+
+enum Pay {
+  cash
+  crypto
+  card
+}
+
+enum BonusTypes {
+ bonus_fara_depunere
+ bonus_cu_depunere
+bonus_cazino
+bonus_sport
+}
+
+//// Casino filters ^^^^ /////
+model AdvertSpace {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  secondary Boolean  @default(false)
+  page      String[]
+  advert    Advert?
+}
+
+model Notification {
+  id        String           @id @unique @default(uuid())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime?        @updatedAt
+  title     String
+  message   String
+  href      String?
+  type      NotificationType
+  read      Boolean          @default(false)
+  userId    String
+  user      User             @relation("UserNotifiation", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  admin
+  manager
+  editor
+  user
+}
+
+enum Status {
+  pending
+  approved
+  rejected
+  completed
+}
+
+enum NotificationType {
+  bonus
+  info
+  success
+  warning
+  error
+}
+
+enum NotificationsAllowed {
+  all
+  important
+  none
+}

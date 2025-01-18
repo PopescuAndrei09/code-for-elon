@@ -1,0 +1,7 @@
+{
+  "github": {
+    "silent": true
+  },
+  "framework": "nextjs",
+  "regions": ["fra1"]
+}

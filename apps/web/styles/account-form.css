@@ -1,0 +1,45 @@
+.PhoneInputCountry {
+  gap: 4px;
+}
+
+.PhoneInputCountrySelect {
+  background-color: #000;
+  color: #fff;
+  padding: 16px 8px;
+  margin-top: 8px;
+}
+
+.PhoneInputCountrySelect::-webkit-scrollbar {
+  display: none;
+}
+.rdp-caption_dropdowns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  background-color: #000;
+  color: #fff;
+}
+
+.rdp-dropdown_month > select::-webkit-scrollbar,
+.rdp-dropdown_year > select::-webkit-scrollbar {
+  display: none;
+}
+.rdp-dropdown_month > select {
+  width: 150px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #000;
+  color: #fff;
+  border: 1px rgba(39, 39, 42, 1) solid;
+}
+
+.rdp-dropdown_year > select {
+  width: 150px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #000;
+  color: #fff;
+  border: 1px rgba(39, 39, 42, 1) solid;
+}

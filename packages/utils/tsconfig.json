@@ -1,0 +1,5 @@
+{
+  "extends": "@ssp/tsconfig/lib.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules", "generated"]
+}

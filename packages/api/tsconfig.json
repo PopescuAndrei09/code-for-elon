@@ -1,0 +1,11 @@
+{
+  "extends": "@ssp/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": [".", "../../packages/auth/src/next-auth.d.ts"]
+}

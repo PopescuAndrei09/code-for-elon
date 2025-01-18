@@ -1,0 +1,13 @@
+{
+  "name": "@ssp/tsconfig",
+  "version": "1.0.0",
+  "private": true,
+  "files": [
+    "base.json",
+    "lib.json",
+    "next.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

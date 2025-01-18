@@ -1,0 +1,44 @@
+{
+  "name": "@ssp/eslint-config",
+  "version": "1.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "files": [
+    "./base.js",
+    "./nextjs.js",
+    "./react.js"
+  ],
+  "scripts": {
+    "clean": "npx rimraf --glob **/node_modules **/.next **/.turbo **/dist",
+    "lint": "eslint .",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint-config-next": "^14.0.4",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-config-turbo": "1.10.14",
+    "eslint-plugin-import": "2.28.1",
+    "eslint-plugin-react": "7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  },
+  "devDependencies": {
+    "@ssp/prettier-config": "*",
+    "@ssp/tsconfig": "*",
+    "@types/eslint": "^8.44.7",
+    "eslint": "^8.53.0",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "./base.js"
+    ]
+  },
+  "prettier": "@ssp/prettier-config"
+}

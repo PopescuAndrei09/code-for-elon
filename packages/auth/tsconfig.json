@@ -1,0 +1,8 @@
+{
+  "extends": "@ssp/tsconfig/base.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "strict": true
+  },
+  "include": ["."]
+}
